@@ -4,6 +4,7 @@ function Form(props) {
   const [firstName, setFirstName] = useState("Sylvia");
   const [lastName, setLastName] = useState("Woods");
   const [submittedData, setSubmittedData] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   function handleFirstNameChange(event) {
     setFirstName(event.target.value);
@@ -15,7 +16,12 @@ function Form(props) {
 
   function handleSubmit(event) {
   event.preventDefault();
-  // first name is required
+  const formData = { firstName: firstName, lastName: lastName };
+    const dataArray = [...submittedData, formData];
+    setSubmittedData(dataArray);
+    setFirstName("");
+    setLastName("");
+
   if (firstName.length > 0) {
     const formData = { firstName: firstName, lastName: lastName };
     const dataArray = [...submittedData, formData];
@@ -28,12 +34,7 @@ function Form(props) {
   }
 }
 
-  const dataArray = [...submittedData, formData];
-    setSubmittedData(dataArray);
-    setFirstName("");
-    setLastName("");
-}
-
+  
  const listOfSubmissions = submittedData.map((data, index) => {
     return (
       <div key={index}>
@@ -61,5 +62,5 @@ return (
     {listOfSubmissions}
   </div>
 );
-
+}
 export default Form;
